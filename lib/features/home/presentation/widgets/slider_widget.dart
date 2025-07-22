@@ -41,7 +41,7 @@ class _HomeSliderState extends State<HomeSlider> {
     final currentBanner = widget.carouselItems[_currentIndex];
 
     return Container(
-      margin: EdgeInsets.all(10.r),
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
       width: double.infinity,
       height: 190.h,
       child: AnimatedSwitcher(

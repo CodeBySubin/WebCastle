@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:webcastle/core/widgets/chached_network_image.dart';
 import 'package:webcastle/features/home/domain/entities/entities.dart';
 
 class BottomBanner extends StatelessWidget {
@@ -9,16 +10,9 @@ class BottomBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(10.r),
-      height: 200.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.r),
-        image: DecorationImage(
-          fit: BoxFit.fill,
-          image: NetworkImage(banner.image),
-        ),
-      ),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 15.h),
+      child: NetworkImageWidget(height: 160.h, url: banner.image),
     );
   }
 }

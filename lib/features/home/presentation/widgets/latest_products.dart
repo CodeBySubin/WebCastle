@@ -4,26 +4,27 @@ import 'package:webcastle/core/constants/constants.dart';
 import 'package:webcastle/features/home/domain/entities/entities.dart';
 import 'package:webcastle/features/home/presentation/widgets/product_card.dart';
 
-class NewArrivals extends StatelessWidget {
+class LatestProducts extends StatelessWidget {
   final List<ProductEntity> products;
 
-  const NewArrivals({super.key, required this.products});
+  const LatestProducts({super.key, required this.products});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                AppStrings.newArrivals,
+                AppStrings.latestProducts,
                 style: Theme.of(
                   context,
                 ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
               ),
+
               Text(
                 AppStrings.viewAll,
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -35,6 +36,7 @@ class NewArrivals extends StatelessWidget {
         ),
         Container(
           margin: EdgeInsets.only(left: 15.w),
+
           height: 313.h,
           child: ListView.separated(
             separatorBuilder: (context, index) => SizedBox(width: 15.w),

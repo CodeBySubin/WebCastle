@@ -14,14 +14,17 @@ class LatestProduct extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.all(10.r),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 AppStrings.latestProduct,
-                style: Theme.of(context).textTheme.titleLarge,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge!.copyWith(fontWeight: FontWeight.bold),
               ),
+
               Text(
                 AppStrings.viewAll,
                 style: Theme.of(context).textTheme.titleMedium!.copyWith(
@@ -32,10 +35,11 @@ class LatestProduct extends StatelessWidget {
           ),
         ),
         Container(
-          margin: EdgeInsets.all(10.w),
-          height: 310.h,
+          margin: EdgeInsets.only(left: 15.w),
+
+          height: 313.h,
           child: ListView.separated(
-            separatorBuilder: (context, index) => SizedBox(width: 20),
+            separatorBuilder: (context, index) => SizedBox(width: 15.w),
             itemCount: products.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) =>

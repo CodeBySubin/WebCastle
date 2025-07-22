@@ -8,7 +8,8 @@ class AppStrings {
   static const String viewAll = "View All";
   static const String ourCategories = "Our Categories";
   static const String newArrivals = "New Arrivals";
-  static const String latestProduct = "Latest Products";
+  static const String latestProduct = "Latest Product";
+  static const String latestProducts = "Latest Products";
   static const String addToCart = "Add to Cart";
   static const String rfq = "RFQ";
   static const String perDozen = "per Dozen";
@@ -16,5 +17,4 @@ class AppStrings {
   static const String shopNow = "Shop Now";
   static const String login = "Login";
   static const String forgotPassword = "Forgot Password";
-
 }

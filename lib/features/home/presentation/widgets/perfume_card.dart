@@ -4,31 +4,29 @@ import 'package:webcastle/core/constants/app_strings.dart';
 import 'package:webcastle/features/home/domain/entities/entities.dart';
 
 class PerfumeShowcase extends StatelessWidget {
-    final List<BannerEntity> banners;
-  const PerfumeShowcase({super.key,required this.banners});
+  final List<BannerEntity> banners;
+
+  const PerfumeShowcase({super.key, required this.banners});
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 250.h,
-      child: ListView.builder(
+      child: ListView.separated(
         scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.only(left: 15.w, top: 15.h),
         itemCount: banners.length,
-        padding: EdgeInsets.symmetric(horizontal: 6.w),
+        separatorBuilder: (_, __) => SizedBox(width: 15.w),
         itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w),
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width / 2 - 25.w,
-              child: PerfumeCard(image: banners[index].image),
-            ),
+          return SizedBox(
+            width: 170.w,
+            child: PerfumeCard(image: banners[index].image),
           );
         },
       ),
     );
   }
 }
-
-
 
 class PerfumeCard extends StatelessWidget {
   final String image;
@@ -38,31 +36,28 @@ class PerfumeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400.h,
+      height: 250.h,
       decoration: BoxDecoration(
-        color: Colors.amber,
         borderRadius: BorderRadius.circular(12.r),
-        image: DecorationImage(
-          fit: BoxFit.fill,
-          image: NetworkImage(
-           image,
-          ),
-        ),
+        image: DecorationImage(fit: BoxFit.fill, image: NetworkImage(image)),
       ),
       child: Align(
         alignment: Alignment.bottomCenter,
-        child: TextButton(
-          onPressed: () {},
-          child: Text(
-            AppStrings.shopNow,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              decoration: TextDecoration.underline,
-              color: Colors.white,
-              decorationColor: Colors.white,
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 1.5,
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 10.h),
+          child: TextButton(
+            onPressed: () {},
+            child: Text(
+              AppStrings.shopNow,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                decoration: TextDecoration.underline,
+                decorationColor: Colors.white,
+                color: Colors.white,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w600,
+                letterSpacing: 1.5,
+              ),
             ),
           ),
         ),

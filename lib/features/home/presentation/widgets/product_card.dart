@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:webcastle/core/constants/app_colors.dart';
 import 'package:webcastle/core/constants/constants.dart';
 import 'package:webcastle/core/widgets/chached_network_image.dart';
 import 'package:webcastle/features/home/domain/entities/entities.dart';
@@ -21,11 +20,11 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 170.h,
+      width: 170.w,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: AppColors.borderGrey),
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withValues(alpha: 0.1),
@@ -48,8 +47,8 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
                     vertical: 4,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.textLight.withValues(alpha: 0.1),
-                    borderRadius: BorderRadius.only(
+                    color: AppColors.textLight.withValues(alpha:  0.1),
+                    borderRadius: const BorderRadius.only(
                       topRight: Radius.circular(12),
                       bottomRight: Radius.circular(12),
                     ),
@@ -79,174 +78,187 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
             ),
           ),
 
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-
-              children: [
-                Center(
-                  child: Container(
-                    height: 120.h,
-                    width: 150.w,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(8),
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: NetworkImageWidget(
+                      height: 120.h,
+                      width: 150.w,
+                      url: widget.product.image,
                     ),
-                    child: NetworkImageWidget(url: widget.product.image),
                   ),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  widget.product.name,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-                  ),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
 
-                const SizedBox(height: 8),
-                Text(
-                  'AED${widget.product.actualPrice}',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[600],
-                    decoration: TextDecoration.lineThrough,
-                  ),
-                ),
+                  Spacer(),
 
-                RichText(
-                  text: TextSpan(
-                    style: const TextStyle(fontSize: 14),
+                  Text(
+                    widget.product.name,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+
+                  SizedBox(height: 6.h),
+
+                  Text(
+                    'AED${widget.product.actualPrice}',
+                    style: TextStyle(
+                      fontSize: 12.sp,
+                      color: Colors.grey[600],
+                      decorationColor: Colors.grey[600],
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
+
+                  SizedBox(height: 4.h),
+
+                  RichText(
+                    text: TextSpan(
+                      style: TextStyle(fontSize: 14.sp),
+                      children: [
+                        TextSpan(
+                          text: AppStrings.aed,
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: Colors.black,
+                          ),
+                        ),
+                        TextSpan(
+                          text: widget.product.price,
+                          style: TextStyle(
+                            fontSize: 16.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
+                        TextSpan(
+                          text: ' ${AppStrings.perDozen}',
+                          style: TextStyle(
+                            fontSize: 12.sp,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  SizedBox(height: 10.h),
+
+                  Row(
                     children: [
-                      TextSpan(
-                        text: AppStrings.aed,
-                        style: TextStyle(fontSize: 12, color: Colors.black),
-                      ),
-                      TextSpan(
-                        text: widget.product.price,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 12.h,
+                          vertical: 8.h,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(20.r),
+                          border: Border.all(color: Colors.grey[300]!),
+                        ),
+                        child: const Text(
+                          AppStrings.rfq,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black87,
+                          ),
                         ),
                       ),
-                      TextSpan(
-                        text: ' ${AppStrings.perDozen}',
-                        style: TextStyle(fontSize: 12, color: Colors.black),
+                      SizedBox(width: 8.w),
+                      Expanded(
+                        child: quantity == 0
+                            ? GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    quantity = 1;
+                                  });
+                                },
+                                child: Container(
+                                  padding:  EdgeInsets.symmetric(
+                                    vertical: 8.h,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.primary,
+                                    borderRadius: BorderRadius.circular(20.r),
+                                  ),
+                                  child: const Center(
+                                    child: Text(
+                                      AppStrings.addToCart,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : Container(
+                               padding:  EdgeInsets.symmetric(
+                                    vertical: 5.h,
+                                  ),
+                                decoration: BoxDecoration(
+                                  color: AppColors.primary,
+                                  borderRadius: BorderRadius.circular(20.r),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          if (quantity > 0) quantity--;
+                                        });
+                                      },
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(4),
+                                        child: Icon(
+                                          Icons.remove,
+                                          color: Colors.white,
+                                          size: 16,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      quantity.toString(),
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          quantity++;
+                                        });
+                                      },
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(4),
+                                        child: Icon(
+                                          Icons.add,
+                                          color: Colors.white,
+                                          size: 16,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                       ),
                     ],
                   ),
-                ),
-
-                const SizedBox(height: 16),
-                Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[100],
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.grey[300]!),
-                      ),
-                      child: const Text(
-                        AppStrings.rfq,
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black87,
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(width: 8),
-                    Expanded(
-                      child: quantity == 0
-                          ? GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  quantity = 1;
-                                });
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 8,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: AppColors.primary,
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    AppStrings.addToCart,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          : Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.primary,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        if (quantity > 0) quantity--;
-                                      });
-                                    },
-                                    child: Container(
-                                      padding: const EdgeInsets.all(4),
-                                      child: const Icon(
-                                        Icons.remove,
-                                        color: Colors.white,
-                                        size: 16,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    quantity.toString(),
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      setState(() {
-                                        quantity++;
-                                      });
-                                    },
-                                    child: Container(
-                                      padding: const EdgeInsets.all(4),
-                                      child: const Icon(
-                                        Icons.add,
-                                        color: Colors.white,
-                                        size: 16,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                    ),
-                  ],
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],

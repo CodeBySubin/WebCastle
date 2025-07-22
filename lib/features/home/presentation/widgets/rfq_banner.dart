@@ -8,15 +8,15 @@ class RfqBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(10.r),
-      height: 200.h,
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+      height: 190.h,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.r),
+        borderRadius: BorderRadius.circular(12.r),
         image: DecorationImage(
           image: NetworkImage(banner),
           fit: BoxFit.cover,
           colorFilter: ColorFilter.mode(
-            Colors.black.withValues(alpha:  0.2), 
+            Colors.black.withValues(alpha: 0.2),
             BlendMode.darken,
           ),
         ),

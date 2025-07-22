@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:webcastle/core/constants/constants.dart';
 import 'package:webcastle/core/routes/routes.dart';
+import 'package:webcastle/core/widgets/loader.dart';
 import 'package:webcastle/features/authentication/presentation/bloc/login_bloc.dart';
 import 'package:webcastle/features/authentication/presentation/bloc/login_event.dart';
 import 'package:webcastle/features/authentication/presentation/bloc/login_state.dart';
@@ -42,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_) => const Center(child: CircularProgressIndicator()),
+      builder: (_) => loader(),
     );
   }
 
