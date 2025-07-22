@@ -32,15 +32,24 @@ class NetworkImageWidget extends StatelessWidget {
       placeholder: (context, url) => Container(
         width: width,
         height: height,
-        color: AppColors.textLight,
+        color: Colors.white,
         child: const Center(child: CircularProgressIndicator()),
       ),
-      errorWidget: (context, url, error) => Container(
-        width: width,
-        height: height,
-        color: AppColors.textLight,
-        child: const Icon(Icons.broken_image, color: Colors.white, size: 40),
-      ),
+   errorWidget: (context, url, error) => Container(
+  width: width,
+  height: height,
+  color: AppColors.textLight,
+  alignment: Alignment.center,
+  child: const Text(
+    'No image found',
+    style: TextStyle(
+      color: Colors.white,
+      fontSize: 14,
+      fontWeight: FontWeight.w500,
+    ),
+  ),
+),
+
     );
   }
 }

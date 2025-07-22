@@ -33,7 +33,7 @@ class NewArrivals extends StatelessWidget {
         ),
         Container(
           margin: EdgeInsets.all(10.w),
-          height: 350.h,
+          height: 310.h,
           child: ListView.separated(
             separatorBuilder: (context, index) => SizedBox(width: 20),
             itemCount: products.length,

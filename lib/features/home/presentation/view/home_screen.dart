@@ -36,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
         forceMaterialTransparency: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        toolbarHeight: 145.h,
+        toolbarHeight: 125.h,
         automaticallyImplyLeading: false,
         flexibleSpace: HomeAppbar(),
       ),

@@ -21,7 +21,7 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 200.h,
+      width: 170.h,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(color: AppColors.borderGrey),
@@ -87,8 +87,8 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
               children: [
                 Center(
                   child: Container(
-                    height: 120,
-                    width: 150,
+                    height: 120.h,
+                    width: 150.w,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(8),
                     ),
