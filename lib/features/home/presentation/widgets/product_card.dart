@@ -6,16 +6,31 @@ import 'package:webcastle/features/home/domain/entities/entities.dart';
 
 class PerfumeProductCard extends StatefulWidget {
   final ProductEntity product;
+  final Function(ProductEntity)? onChanged; // To notify parent if needed
 
-  const PerfumeProductCard({super.key, required this.product});
+  const PerfumeProductCard({
+    super.key,
+    required this.product,
+    this.onChanged,
+  });
 
   @override
   State<PerfumeProductCard> createState() => _PerfumeProductCardState();
 }
 
 class _PerfumeProductCardState extends State<PerfumeProductCard> {
-  int quantity = 0;
-  bool isFavorite = false;
+  late ProductEntity product;
+
+  @override
+  void initState() {
+    super.initState();
+    product = widget.product;
+  }
+
+  void _updateProduct(ProductEntity updated) {
+    setState(() => product = updated);
+    widget.onChanged?.call(updated); // Notify parent if needed
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +42,7 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
         borderRadius: BorderRadius.circular(12.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.1),
+            color: Colors.grey.withAlpha(25),
             spreadRadius: 1,
             blurRadius: 8,
             offset: const Offset(0, 2),
@@ -41,36 +56,30 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: AppColors.textLight.withValues(alpha:  0.1),
-                    borderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(12),
-                      bottomRight: Radius.circular(12),
+                if (product.offer.isNotEmpty)
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: AppColors.textLight.withAlpha(25),
+                      borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(12),
+                        bottomRight: Radius.circular(12),
+                      ),
+                    ),
+                    child: Text(
+                      product.offer,
+                      style: const TextStyle(
+                        color: Colors.green,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-                  child: Text(
-                    widget.product.offer,
-                    style: const TextStyle(
-                      color: Colors.green,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
                 GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isFavorite = !isFavorite;
-                    });
-                  },
+                  onTap: () => _updateProduct(product.copyWith(isFavorite: !product.isFavorite)),
                   child: Icon(
-                    isFavorite ? Icons.favorite : Icons.favorite_border,
-                    color: isFavorite ? AppColors.primary : Colors.black,
+                    product.isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: product.isFavorite ? AppColors.primary : Colors.black,
                     size: 24,
                   ),
                 ),
@@ -78,6 +87,7 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
             ),
           ),
 
+          // Product Info Section
           Expanded(
             child: Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -88,14 +98,14 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
                     child: NetworkImageWidget(
                       height: 120.h,
                       width: 150.w,
-                      url: widget.product.image,
+                      url: product.image,
                     ),
                   ),
 
-                  Spacer(),
+                  const Spacer(),
 
                   Text(
-                    widget.product.name,
+                    product.name,
                     style: TextStyle(
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
@@ -108,7 +118,7 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
                   SizedBox(height: 6.h),
 
                   Text(
-                    'AED${widget.product.actualPrice}',
+                    'AED${product.actualPrice}',
                     style: TextStyle(
                       fontSize: 12.sp,
                       color: Colors.grey[600],
@@ -131,7 +141,7 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
                           ),
                         ),
                         TextSpan(
-                          text: widget.product.price,
+                          text: product.price,
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.bold,
@@ -154,10 +164,7 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
                   Row(
                     children: [
                       Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 12.h,
-                          vertical: 8.h,
-                        ),
+                        padding: EdgeInsets.symmetric(horizontal: 12.h, vertical: 8.h),
                         decoration: BoxDecoration(
                           color: Colors.grey[100],
                           borderRadius: BorderRadius.circular(20.r),
@@ -173,18 +180,13 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
                         ),
                       ),
                       SizedBox(width: 8.w),
+
                       Expanded(
-                        child: quantity == 0
+                        child: product.count == 0
                             ? GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    quantity = 1;
-                                  });
-                                },
+                                onTap: () => _updateProduct(product.copyWith(count: 1)),
                                 child: Container(
-                                  padding:  EdgeInsets.symmetric(
-                                    vertical: 8.h,
-                                  ),
+                                  padding: EdgeInsets.symmetric(vertical: 8.h),
                                   decoration: BoxDecoration(
                                     color: AppColors.primary,
                                     borderRadius: BorderRadius.circular(20.r),
@@ -202,34 +204,27 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
                                 ),
                               )
                             : Container(
-                               padding:  EdgeInsets.symmetric(
-                                    vertical: 5.h,
-                                  ),
+                                padding: EdgeInsets.symmetric(vertical: 5.h),
                                 decoration: BoxDecoration(
                                   color: AppColors.primary,
                                   borderRadius: BorderRadius.circular(20.r),
                                 ),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   children: [
                                     GestureDetector(
                                       onTap: () {
-                                        setState(() {
-                                          if (quantity > 0) quantity--;
-                                        });
+                                        if (product.count > 0) {
+                                          _updateProduct(product.copyWith(count: product.count - 1));
+                                        }
                                       },
                                       child: const Padding(
                                         padding: EdgeInsets.all(4),
-                                        child: Icon(
-                                          Icons.remove,
-                                          color: Colors.white,
-                                          size: 16,
-                                        ),
+                                        child: Icon(Icons.remove, color: Colors.white, size: 16),
                                       ),
                                     ),
                                     Text(
-                                      quantity.toString(),
+                                      product.count.toString(),
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
@@ -237,18 +232,10 @@ class _PerfumeProductCardState extends State<PerfumeProductCard> {
                                       ),
                                     ),
                                     GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          quantity++;
-                                        });
-                                      },
+                                      onTap: () => _updateProduct(product.copyWith(count: product.count + 1)),
                                       child: const Padding(
                                         padding: EdgeInsets.all(4),
-                                        child: Icon(
-                                          Icons.add,
-                                          color: Colors.white,
-                                          size: 16,
-                                        ),
+                                        child: Icon(Icons.add, color: Colors.white, size: 16),
                                       ),
                                     ),
                                   ],

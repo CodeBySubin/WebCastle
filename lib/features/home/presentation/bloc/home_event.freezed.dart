@@ -55,11 +55,14 @@ extension HomeEventPatterns on HomeEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( FetchHome value)?  fetchHome,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( FetchHome value)?  fetchHome,TResult Function( ToggleFavorite value)?  toggleFavorite,TResult Function( IncrementCount value)?  incrementCount,TResult Function( DecrementCount value)?  decrementCount,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case FetchHome() when fetchHome != null:
-return fetchHome(_that);case _:
+return fetchHome(_that);case ToggleFavorite() when toggleFavorite != null:
+return toggleFavorite(_that);case IncrementCount() when incrementCount != null:
+return incrementCount(_that);case DecrementCount() when decrementCount != null:
+return decrementCount(_that);case _:
   return orElse();
 
 }
@@ -77,11 +80,14 @@ return fetchHome(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( FetchHome value)  fetchHome,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( FetchHome value)  fetchHome,required TResult Function( ToggleFavorite value)  toggleFavorite,required TResult Function( IncrementCount value)  incrementCount,required TResult Function( DecrementCount value)  decrementCount,}){
 final _that = this;
 switch (_that) {
 case FetchHome():
-return fetchHome(_that);case _:
+return fetchHome(_that);case ToggleFavorite():
+return toggleFavorite(_that);case IncrementCount():
+return incrementCount(_that);case DecrementCount():
+return decrementCount(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -98,11 +104,14 @@ return fetchHome(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( FetchHome value)?  fetchHome,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( FetchHome value)?  fetchHome,TResult? Function( ToggleFavorite value)?  toggleFavorite,TResult? Function( IncrementCount value)?  incrementCount,TResult? Function( DecrementCount value)?  decrementCount,}){
 final _that = this;
 switch (_that) {
 case FetchHome() when fetchHome != null:
-return fetchHome(_that);case _:
+return fetchHome(_that);case ToggleFavorite() when toggleFavorite != null:
+return toggleFavorite(_that);case IncrementCount() when incrementCount != null:
+return incrementCount(_that);case DecrementCount() when decrementCount != null:
+return decrementCount(_that);case _:
   return null;
 
 }
@@ -119,10 +128,13 @@ return fetchHome(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetchHome,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetchHome,TResult Function( int productId)?  toggleFavorite,TResult Function( int productId)?  incrementCount,TResult Function( int productId)?  decrementCount,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case FetchHome() when fetchHome != null:
-return fetchHome();case _:
+return fetchHome();case ToggleFavorite() when toggleFavorite != null:
+return toggleFavorite(_that.productId);case IncrementCount() when incrementCount != null:
+return incrementCount(_that.productId);case DecrementCount() when decrementCount != null:
+return decrementCount(_that.productId);case _:
   return orElse();
 
 }
@@ -140,10 +152,13 @@ return fetchHome();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetchHome,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetchHome,required TResult Function( int productId)  toggleFavorite,required TResult Function( int productId)  incrementCount,required TResult Function( int productId)  decrementCount,}) {final _that = this;
 switch (_that) {
 case FetchHome():
-return fetchHome();case _:
+return fetchHome();case ToggleFavorite():
+return toggleFavorite(_that.productId);case IncrementCount():
+return incrementCount(_that.productId);case DecrementCount():
+return decrementCount(_that.productId);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -160,10 +175,13 @@ return fetchHome();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetchHome,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetchHome,TResult? Function( int productId)?  toggleFavorite,TResult? Function( int productId)?  incrementCount,TResult? Function( int productId)?  decrementCount,}) {final _that = this;
 switch (_that) {
 case FetchHome() when fetchHome != null:
-return fetchHome();case _:
+return fetchHome();case ToggleFavorite() when toggleFavorite != null:
+return toggleFavorite(_that.productId);case IncrementCount() when incrementCount != null:
+return incrementCount(_that.productId);case DecrementCount() when decrementCount != null:
+return decrementCount(_that.productId);case _:
   return null;
 
 }
@@ -202,5 +220,203 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class ToggleFavorite implements HomeEvent {
+  const ToggleFavorite(this.productId);
+  
+
+ final  int productId;
+
+/// Create a copy of HomeEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ToggleFavoriteCopyWith<ToggleFavorite> get copyWith => _$ToggleFavoriteCopyWithImpl<ToggleFavorite>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ToggleFavorite&&(identical(other.productId, productId) || other.productId == productId));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,productId);
+
+@override
+String toString() {
+  return 'HomeEvent.toggleFavorite(productId: $productId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ToggleFavoriteCopyWith<$Res> implements $HomeEventCopyWith<$Res> {
+  factory $ToggleFavoriteCopyWith(ToggleFavorite value, $Res Function(ToggleFavorite) _then) = _$ToggleFavoriteCopyWithImpl;
+@useResult
+$Res call({
+ int productId
+});
+
+
+
+
+}
+/// @nodoc
+class _$ToggleFavoriteCopyWithImpl<$Res>
+    implements $ToggleFavoriteCopyWith<$Res> {
+  _$ToggleFavoriteCopyWithImpl(this._self, this._then);
+
+  final ToggleFavorite _self;
+  final $Res Function(ToggleFavorite) _then;
+
+/// Create a copy of HomeEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? productId = null,}) {
+  return _then(ToggleFavorite(
+null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class IncrementCount implements HomeEvent {
+  const IncrementCount(this.productId);
+  
+
+ final  int productId;
+
+/// Create a copy of HomeEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$IncrementCountCopyWith<IncrementCount> get copyWith => _$IncrementCountCopyWithImpl<IncrementCount>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is IncrementCount&&(identical(other.productId, productId) || other.productId == productId));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,productId);
+
+@override
+String toString() {
+  return 'HomeEvent.incrementCount(productId: $productId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $IncrementCountCopyWith<$Res> implements $HomeEventCopyWith<$Res> {
+  factory $IncrementCountCopyWith(IncrementCount value, $Res Function(IncrementCount) _then) = _$IncrementCountCopyWithImpl;
+@useResult
+$Res call({
+ int productId
+});
+
+
+
+
+}
+/// @nodoc
+class _$IncrementCountCopyWithImpl<$Res>
+    implements $IncrementCountCopyWith<$Res> {
+  _$IncrementCountCopyWithImpl(this._self, this._then);
+
+  final IncrementCount _self;
+  final $Res Function(IncrementCount) _then;
+
+/// Create a copy of HomeEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? productId = null,}) {
+  return _then(IncrementCount(
+null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class DecrementCount implements HomeEvent {
+  const DecrementCount(this.productId);
+  
+
+ final  int productId;
+
+/// Create a copy of HomeEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DecrementCountCopyWith<DecrementCount> get copyWith => _$DecrementCountCopyWithImpl<DecrementCount>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DecrementCount&&(identical(other.productId, productId) || other.productId == productId));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,productId);
+
+@override
+String toString() {
+  return 'HomeEvent.decrementCount(productId: $productId)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $DecrementCountCopyWith<$Res> implements $HomeEventCopyWith<$Res> {
+  factory $DecrementCountCopyWith(DecrementCount value, $Res Function(DecrementCount) _then) = _$DecrementCountCopyWithImpl;
+@useResult
+$Res call({
+ int productId
+});
+
+
+
+
+}
+/// @nodoc
+class _$DecrementCountCopyWithImpl<$Res>
+    implements $DecrementCountCopyWith<$Res> {
+  _$DecrementCountCopyWithImpl(this._self, this._then);
+
+  final DecrementCount _self;
+  final $Res Function(DecrementCount) _then;
+
+/// Create a copy of HomeEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? productId = null,}) {
+  return _then(DecrementCount(
+null == productId ? _self.productId : productId // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
 
 // dart format on

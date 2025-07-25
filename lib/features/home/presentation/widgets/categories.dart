@@ -36,52 +36,51 @@ class Categories extends StatelessWidget {
         ),
         Container(
           padding: EdgeInsets.only(left: 13.w),
-          height: 300.h,
+          height: 250.h,
           child: GridView.builder(
             scrollDirection: Axis.horizontal,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              mainAxisSpacing: 0,
-              crossAxisSpacing: 0,
-              childAspectRatio: 1.3,
+              mainAxisSpacing: 2.w,
+              crossAxisSpacing: 3.h,
+              childAspectRatio: 1.2,
             ),
             itemCount: categories.length,
             itemBuilder: (context, index) {
               final category = categories[index];
-              return   Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: 100.w,
-                        height: 100.h,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Colors.grey.shade200,
-                        ),
-                        clipBehavior: Clip.antiAlias,
-                        child: NetworkImageWidget(
-                          url: category.image,
-                          fit: BoxFit.fill,
-                        ),
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    width: 90.w,
+                    height: 90.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.grey.shade200,
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    child: NetworkImageWidget(
+                      url: category.image,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                  SizedBox(height: 8.h),
+                  SizedBox(
+                    width: 90.w,
+                    child: Text(
+                      category.name,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: -0.1,
                       ),
-                      SizedBox(height: 8.h),
-                      SizedBox(
-                        width: 100.w,
-                        child: Text(
-                          category.name,
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 13.sp,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ],
-                  
-                
+                    ),
+                  ),
+                ],
               );
             },
           ),
